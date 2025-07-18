@@ -62,24 +62,24 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex justify-center items-center p-4">
-      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex justify-center items-start sm:items-center p-4">
+      <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 w-full max-w-md">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-blue-700 mb-4 sm:mb-6">
           Todo App
         </h1>
 
-        <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-6">
           <input
             name="todoText"
             type="text"
             value={form.todoText}
             onChange={handleChange}
             placeholder="Enter your todo..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
           />
           <button
             type="submit"
-            className={`px-4 py-2 rounded-md text-white transition ${
+            className={`px-4 py-2 rounded-md text-white text-sm sm:text-base transition ${
               editId
                 ? "bg-green-500 hover:bg-green-600"
                 : "bg-blue-500 hover:bg-blue-600"
@@ -89,14 +89,14 @@ const App = () => {
           </button>
         </form>
 
-        <ul className="space-y-4">
+        <ul className="space-y-3 sm:space-y-4">
           {data.length === 0 ? (
             <p className="text-gray-500 text-center">No todos added yet.</p>
           ) : (
             data.map((todo) => (
               <li
                 key={todo._id}
-                className="bg-gray-100 flex justify-between items-center px-4 py-3 rounded-md shadow"
+                className="bg-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 rounded-md shadow"
               >
                 <span
                   onClick={() => {
@@ -106,7 +106,7 @@ const App = () => {
                         : [...prev, todo._id]
                     );
                   }}
-                  className={`cursor-pointer text-gray-800 ${
+                  className={`cursor-pointer text-gray-800 break-words ${
                     clickedIds.includes(todo._id)
                       ? "line-through text-gray-400"
                       : ""
@@ -115,16 +115,16 @@ const App = () => {
                   {todo.todoText}
                 </span>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-2 sm:mt-0 self-end">
                   <button
                     onClick={() => handleEdit(todo)}
-                    className="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500"
+                    className="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500 text-sm"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(todo._id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
                   >
                     Delete
                   </button>
