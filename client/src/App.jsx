@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+// ✅ Load API URL from environment variable
+const API_URL = import.meta.env.VITE_API_URL;
+
 const App = () => {
   const [form, setForm] = useState({ todoText: "" });
   const [data, setData] = useState([]);
   const [editId, setEditId] = useState(null);
   const [clickedIds, setClickedIds] = useState([]);
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +22,10 @@ const App = () => {
     }
     try {
       if (editId) {
-        await axios.put(`http://localhost:3000/check/${editId}`, form);
+        await axios.put(`${API_URL}/check/${editId}`, form);
         setEditId(null);
       } else {
-        await axios.post("http://localhost:3000/check", form);
+        await axios.post(`${API_URL}/check`, form);
       }
       setForm({ todoText: "" });
       showData();
@@ -31,23 +34,23 @@ const App = () => {
     }
   };
 
-  async function showData() {
+  const showData = async () => {
     try {
-      const myData = await axios.get(`http://localhost:3000/check`);
+      const myData = await axios.get(`${API_URL}/check`);
       setData(myData.data);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
-  async function handleDelete(id) {
+  const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/check/${id}`);
+      await axios.delete(`${API_URL}/check/${id}`);
       showData();
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleEdit = (todo) => {
     setEditId(todo._id);
