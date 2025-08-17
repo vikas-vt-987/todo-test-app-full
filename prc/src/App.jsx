@@ -5,12 +5,9 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  console.log(count);
   return (
     <>
       <div>
-      //added for testing
-      <h1>commit</h1>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
